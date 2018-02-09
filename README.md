@@ -1,4 +1,4 @@
-#Welcome to the VP->Google Sync (VPGSync) client.
+# Welcome to the VP->Google Sync (VPGSync) client.
 
 This project is only intended for people working at Vestas Wind Systems
 

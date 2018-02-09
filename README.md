@@ -19,6 +19,9 @@ I can only mark one person at a time to me synced and it keeps fu..... up my con
 
 So I finally got so annoyed and decided to do something about it.
 
+## Where to download?
+
+You can get it from here: https://github.com/hyberdk/VPGSync/releases/tag/v0.1
 
 ## How it works?
 

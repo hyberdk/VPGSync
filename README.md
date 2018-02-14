@@ -152,7 +152,7 @@ If you want to update, just hit the "Sync" button again.. ;-)
 
 # Revoking access to Google # 
 
-5 - steps, here we go:
+6 - steps, here we go:
 
 
 ![](images/remove_google_access_step1.png)

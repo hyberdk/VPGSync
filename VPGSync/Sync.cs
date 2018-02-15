@@ -102,7 +102,10 @@ namespace VPGSync
             {
                 foreach (var item in toBeUpdated)
                 {
-                    GConnect.UpdateContact(auth, item.Value.GetGoogleContact());
+                    Contact gContact = item.Value.GetGoogleContact();
+
+                    GConnect.UpdateContact(auth, gContact);
+                    GConnect.UpdatePhoto(auth, gContact, item.Value.Picture);
                     //System.Threading.Thread.Sleep(3000);
                     _status.ToBeUpdated--;
                     ProgressUpdate(_status);
@@ -111,7 +114,6 @@ namespace VPGSync
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -164,6 +166,9 @@ namespace VPGSync
                     //HACK! - dotnet lib does not support to set "nickname" while creating object ;-(
                     newContact.ContactEntry.Nickname = item.Value.Initials;
                     GConnect.UpdateContact(auth, newContact);
+
+                    //update photo
+                    GConnect.UpdatePhoto(auth, newContact, item.Value.Picture);
 
                     //Console.WriteLine("Created Contact: " + item.Key);
                     _status.ToBeCreated--;

@@ -13,6 +13,7 @@ namespace VPGSync
     internal class VPContact
     {
         SyncAction _actionNeeded = SyncAction.Create;
+        byte[] _picture;
 
         /// <summary>
         /// does the contact need to be created, updated or is it InSync.
@@ -202,5 +203,42 @@ namespace VPGSync
             return GoogleContact;
 
         }
+
+        /// <summary>
+        /// Picture of VP Contact, it will download the picture if none exist
+        /// </summary>
+        public byte[] Picture
+        {
+            get
+            {
+                if (_picture != null && _picture.Length != 0) return _picture;
+                if (string.IsNullOrEmpty(Initials)) return null;
+
+                _picture = DownloadPicture(Initials);
+                return _picture;
+            }
+        }
+
+        /// <summary>
+        /// downloads picture from Vestas image database
+        /// </summary>
+        /// <param name="initials">internal initials of person</param>
+        /// <returns>picture as byte array</returns>
+        private static byte[] DownloadPicture(string initials)
+        {
+            try
+            {
+                using (System.Net.WebClient wc = new System.Net.WebClient())
+                {
+                    byte[] img = wc.DownloadData("http://photos.vestas.net/" + initials + ".jpg");
+                    return img;
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
     }
 }

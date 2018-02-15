@@ -5,6 +5,7 @@ using Google.GData.Client;
 using Google.GData.Contacts;
 using NLog;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -414,5 +415,29 @@ namespace VPGSync
 
         }
 
+        public static void UpdatePhoto(UserCredential creds, Contact contact, byte[] photo)
+        {
+            ContactsRequest cr = BuildContactsRequest(creds);
+
+            try
+            {
+                Stream io = new MemoryStream(photo);
+                cr.SetPhoto(contact, io);
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex, "Could not update picture in Google Contact");
+            }
+            //catch (GDataVersionConflictException e)
+            //{
+            //    // Etags mismatch: handle the exception.
+            //}
+
+        }
+
     }
-}
+
+
+
+    }
+

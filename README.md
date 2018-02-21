@@ -1,6 +1,24 @@
 # Welcome to the VP->Google Sync (VPGSync) client.
 
-This project is only intended for people working at Vestas Wind Systems
+
+
+* [Welcome to the VP->Google Sync (VPGSync) client.](#welcome-to-the-vp-google-sync-vpgsync-client)
+ * [It does what?!?](#it-does-what)
+ * [Why?](#Why?)
+ * [Where to download?](#where-to-download)
+ * [What works?](#what-works)
+ * [What is synchronized?](#what-is-synchronized)
+ * [Okay, so what does not work?](#okay-so-what-does-not-work)
+* [How to use VPGSync](#how-to-use-vpgsync)
+ * [Marking/Removing contacts for synchronization in VP](#markingremoving-contacts-for-synchronization-in-vp)
+ * [Start Sync](#start-sync)
+ * [Authorize Google Contact Access (first time only)](#authorize-google-contact-access-first-time-only)
+ * [Syncing](#syncing)
+* [Revoking access to Google](#revoking-access-to-google) 
+* [Starting VPGSync automatically on logon](starting-vpgsync-automactically-on-logon)
+
+
+**This project is only intended for people working at Vestas Wind Systems**
 
 It is a synchronization tool for the internal VP (Vestas People) tool and to your personal Google Contacts. It is a one-way sync, hence only add/update/delete contacts in Google.
 
@@ -28,24 +46,36 @@ This tool CANNOT update any VP Contact/Person..
 
 ## Why?
 
-The Outlook App.. I hate it, like really really hate it.. But I am forced to use it, like really really forced to use it.
-
-I cannot believe that M$ get away with pushing such s... to people, damn..
+I really liked the old VPConnection, but the the Outlook App.. I dont care for it, like really not.. 
 
 I can only mark one person at a time to me synced and it keeps fu..... up my contacts on my phone..
 
 So I finally got so annoyed and decided to do something about it.
 
+Yeah you might ask, why didnt you just build an Android app.. Well one reason: Mobile phones are restricted to the "mobility" network that does not have access to the VP-DB..
+
+I did not want to make an application that broke our security policies.. So.. a Windows Native app it is...
+
+
 ## Where to download?
 
-You can get it from here: https://github.com/hyberdk/VPGSync/releases/tag/v0.1
+You can get it from here: https://github.com/hyberdk/VPGSync/releases/
+
+Just grab the latest one ;-)
+
 
 ## What works?
 
-* VP People marked for "Outlook synchronization" will be synced
-* VP Departments marked for "Outlook synchronization" will be sync
- - Only the Department will be synced, not parent- or sub-departments will synchronize.
- - You can mark as many departments as you like.
+* **v0.1**
+ * VP People marked for "Outlook synchronization" will be synced
+ * VP Departments marked for "Outlook synchronization" will be sync
+  - Only the Department will be synced, not parent- or sub-departments will synchronize.
+  - You can mark as many departments as you like.
+* **v0.2**
+ * It will sync the picture from photos.vestas.net to your Google Contact
+ * AutoSync - Sync every xx minutes 
+ * Minimize to tray
+
 
 ## What is synchronized?
 
@@ -67,7 +97,6 @@ Probably a lot.. like a lot..
 But known outstanding is:
 
 * Sites marked to be synchronized
-* Picture is not uploaded to Google Contacts
 
 and you know, this was thrown together in 7-8 evenings, so not much error handling or logging is done.. So it will probably crash for you at some point.
 
@@ -75,7 +104,7 @@ and you know, this was thrown together in 7-8 evenings, so not much error handli
 
 here is a quick guide to use it.
 
-## Marking/Removing contacts for syncronization in VP ##
+## Marking/Removing contacts for synchronization in VP ##
 
 Go to http://vp
 
@@ -174,3 +203,16 @@ Click "MANAGE APPS"
 ![](images/remove_google_access_step4.png)
 
 Click the "VP->Google Sync (VPGSync)" app and then click "REMOVE ACCESS"
+
+
+# Starting VPGSync automatically on logon
+
+Open the Windows 8 start screen by doing one of the following:
+
+* Press the Windows key Move mouse to the bottom left of the screen. When the start screen icon appears, click once. **OR** Press the ‘Windows key’+’R’
+
+* Type %appdata% and press Enter. This should take you to “C:\Users\<User-Name>\AppData\Roaming”.
+
+* Navigate to “\Microsoft\Windows\Start Menu\Programs\Startup”. The full path should now look something like: “C:\Users\<user-name>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup”.
+
+* Add shortcuts to the programs you want to automatically start into this folder.

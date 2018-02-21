@@ -1,9 +1,12 @@
 ﻿using Google.GData.Extensions;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,13 +16,43 @@ namespace VPGSync
 {
     public partial class VPGSyncMain : Form
     {
+        private System.Windows.Forms.NotifyIcon _notifyIcon;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        int _nextSync = 99999;
+
+
         public VPGSyncMain()
         {
             InitializeComponent();
+            _notifyIcon = new NotifyIcon();
+            this.components = new System.ComponentModel.Container();
+            _notifyIcon.Icon = new Icon("icon.ico");
+            _notifyIcon.DoubleClick += new System.EventHandler(this._notifyIcon_DoubleClick);
+            LoadSettings();
+            SetupGUI();
+        }
+
+        private void _notifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                //this.WindowState = FormWindowState.Maximized;
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+            }
+                
+            this.Activate();
         }
 
         private void cmdSync_Click(object sender, EventArgs e)
         {
+            logger.Info("Starting manual sync");
+            StartSync();
+        }
+
+        private void StartSync()
+        {
+            if (!cmdSync.Enabled) return;
 
             if (!InitialChecks())
             {
@@ -28,8 +61,6 @@ namespace VPGSync
             }
             cmdSync.Enabled = false;
             Task task = SyncronizeAsync();
-
-            return;
         }
 
         private bool InitialChecks()
@@ -137,6 +168,110 @@ namespace VPGSync
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void VPGSyncMain_Resize(object sender, EventArgs e)
+        {
+            CheckSystemTray();
+        }
+
+        private void CheckSystemTray()
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                _notifyIcon.Visible = true;
+                //_notifyIcon.BalloonTipText = "TEST";
+                //_notifyIcon.ShowBalloonTip(500);
+                this.Hide();
+
+
+                //this._notifyIcon.BalloonTipText = "[Balloon Text when Minimized]";
+                //this._notifyIcon.BalloonTipTitle = "[Balloon Title when Minimized]";
+                //this._notifyIcon.Text = "[Message shown when hovering over tray icon]";
+            }
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                _notifyIcon.Visible = false;
+            }
+        }
+
+        private void tmrSync_Tick(object sender, EventArgs e)
+        {
+
+            if (chkAutoSync.Enabled)
+            {
+                _nextSync--;
+                lblNextSyncIn.Text = "Next sync in (minutes): " + _nextSync;
+            }
+
+            if (chkAutoSync.Enabled && _nextSync == 0 && cmdSync.Enabled)
+            {
+                //do sync
+                _nextSync = (int)numSyncInterval.Value;
+                StartSync();
+                return;
+            }
+        }
+
+
+        public void SaveConfig()
+        {
+            Properties.Settings.Default.AutoSyncEnabled = chkAutoSync.Checked;
+            Properties.Settings.Default.AutoSyncInterval = (int) numSyncInterval.Value;
+            Properties.Settings.Default.StartMinimized = chkStartMinimized.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private void SetupGUI()
+        {
+            tmrSync.Enabled = chkAutoSync.Checked;
+            lblSyncIntervalLabel.Enabled = chkAutoSync.Checked;
+            lblNextSyncIn.Enabled = chkAutoSync.Checked;
+            numSyncInterval.Enabled = chkAutoSync.Checked;
+        }
+
+        private void LoadSettings()
+        {
+            chkAutoSync.Checked = Properties.Settings.Default.AutoSyncEnabled;
+            numSyncInterval.Value = Properties.Settings.Default.AutoSyncInterval;
+            chkStartMinimized.Checked = Properties.Settings.Default.StartMinimized;
+            _nextSync = Properties.Settings.Default.AutoSyncInterval;
+            lblNextSyncIn.Text = "Next sync in (minutes): " + _nextSync;
+
+            if (Properties.Settings.Default.StartMinimized)
+            {
+                WindowState = FormWindowState.Minimized;
+                CheckSystemTray();
+            }
+        }
+
+
+        private void chkAutoSync_MouseClick(object sender, MouseEventArgs e)
+        {
+            SetupGUI();
+            SaveConfig();
+        }
+
+        private void numSyncInterval_MouseClick(object sender, MouseEventArgs e)
+        {
+            SaveConfig();
+            _nextSync = Properties.Settings.Default.AutoSyncInterval;
+            lblNextSyncIn.Text = "Next sync in (minutes): " + _nextSync;
+        }
+
+        private void chkStartMinimized_MouseClick(object sender, MouseEventArgs e)
+        {
+            SaveConfig();
+        }
+
+        private void cmdOpenLog_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists("logs\\"))
+            {
+                Directory.CreateDirectory("logs");
+            }
+            
+            Process.Start("logs\\");
         }
     }
 }

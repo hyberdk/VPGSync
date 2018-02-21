@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VPGSyncMain));
             this.cmdSync = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -51,14 +52,27 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblNextSyncIn = new System.Windows.Forms.Label();
+            this.chkAutoSync = new System.Windows.Forms.CheckBox();
+            this.lblSyncIntervalLabel = new System.Windows.Forms.Label();
+            this.numSyncInterval = new System.Windows.Forms.NumericUpDown();
+            this.tmrSync = new System.Windows.Forms.Timer(this.components);
+            this.grpOtherSettings = new System.Windows.Forms.GroupBox();
+            this.cmdOpenLog = new System.Windows.Forms.Button();
+            this.chkStartMinimized = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSyncInterval)).BeginInit();
+            this.grpOtherSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdSync
             // 
-            this.cmdSync.Location = new System.Drawing.Point(331, 186);
+            this.cmdSync.Location = new System.Drawing.Point(331, 288);
             this.cmdSync.Name = "cmdSync";
             this.cmdSync.Size = new System.Drawing.Size(75, 23);
             this.cmdSync.TabIndex = 0;
@@ -270,25 +284,144 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Current Task:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblNextSyncIn);
+            this.groupBox2.Controls.Add(this.chkAutoSync);
+            this.groupBox2.Controls.Add(this.lblSyncIntervalLabel);
+            this.groupBox2.Controls.Add(this.numSyncInterval);
+            this.groupBox2.Location = new System.Drawing.Point(13, 187);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(206, 95);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "AutoSync";
+            // 
+            // lblNextSyncIn
+            // 
+            this.lblNextSyncIn.AutoSize = true;
+            this.lblNextSyncIn.Location = new System.Drawing.Point(10, 69);
+            this.lblNextSyncIn.Name = "lblNextSyncIn";
+            this.lblNextSyncIn.Size = new System.Drawing.Size(136, 13);
+            this.lblNextSyncIn.TabIndex = 3;
+            this.lblNextSyncIn.Text = "Next sync in (minutes): N/A";
+            // 
+            // chkAutoSync
+            // 
+            this.chkAutoSync.AutoSize = true;
+            this.chkAutoSync.Location = new System.Drawing.Point(10, 19);
+            this.chkAutoSync.Name = "chkAutoSync";
+            this.chkAutoSync.Size = new System.Drawing.Size(108, 17);
+            this.chkAutoSync.TabIndex = 2;
+            this.chkAutoSync.Text = "Enable AutoSync";
+            this.chkAutoSync.UseVisualStyleBackColor = true;
+            this.chkAutoSync.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkAutoSync_MouseClick);
+            // 
+            // lblSyncIntervalLabel
+            // 
+            this.lblSyncIntervalLabel.AutoSize = true;
+            this.lblSyncIntervalLabel.Location = new System.Drawing.Point(82, 44);
+            this.lblSyncIntervalLabel.Name = "lblSyncIntervalLabel";
+            this.lblSyncIntervalLabel.Size = new System.Drawing.Size(112, 13);
+            this.lblSyncIntervalLabel.TabIndex = 1;
+            this.lblSyncIntervalLabel.Text = "minutes between sync";
+            // 
+            // numSyncInterval
+            // 
+            this.numSyncInterval.Increment = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numSyncInterval.Location = new System.Drawing.Point(10, 42);
+            this.numSyncInterval.Maximum = new decimal(new int[] {
+            40320,
+            0,
+            0,
+            0});
+            this.numSyncInterval.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.numSyncInterval.Name = "numSyncInterval";
+            this.numSyncInterval.Size = new System.Drawing.Size(66, 20);
+            this.numSyncInterval.TabIndex = 0;
+            this.numSyncInterval.Value = new decimal(new int[] {
+            180,
+            0,
+            0,
+            0});
+            this.numSyncInterval.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numSyncInterval_MouseClick);
+            this.numSyncInterval.MouseDown += new System.Windows.Forms.MouseEventHandler(this.numSyncInterval_MouseClick);
+            this.numSyncInterval.MouseUp += new System.Windows.Forms.MouseEventHandler(this.numSyncInterval_MouseClick);
+            // 
+            // tmrSync
+            // 
+            this.tmrSync.Interval = 60000;
+            this.tmrSync.Tick += new System.EventHandler(this.tmrSync_Tick);
+            // 
+            // grpOtherSettings
+            // 
+            this.grpOtherSettings.Controls.Add(this.cmdOpenLog);
+            this.grpOtherSettings.Controls.Add(this.chkStartMinimized);
+            this.grpOtherSettings.Location = new System.Drawing.Point(225, 187);
+            this.grpOtherSettings.Name = "grpOtherSettings";
+            this.grpOtherSettings.Size = new System.Drawing.Size(181, 95);
+            this.grpOtherSettings.TabIndex = 5;
+            this.grpOtherSettings.TabStop = false;
+            this.grpOtherSettings.Text = "Other Settings";
+            // 
+            // cmdOpenLog
+            // 
+            this.cmdOpenLog.Location = new System.Drawing.Point(11, 39);
+            this.cmdOpenLog.Name = "cmdOpenLog";
+            this.cmdOpenLog.Size = new System.Drawing.Size(96, 23);
+            this.cmdOpenLog.TabIndex = 1;
+            this.cmdOpenLog.Text = "Open Log Folder";
+            this.cmdOpenLog.UseVisualStyleBackColor = true;
+            this.cmdOpenLog.Click += new System.EventHandler(this.cmdOpenLog_Click);
+            // 
+            // chkStartMinimized
+            // 
+            this.chkStartMinimized.AutoSize = true;
+            this.chkStartMinimized.Location = new System.Drawing.Point(11, 19);
+            this.chkStartMinimized.Name = "chkStartMinimized";
+            this.chkStartMinimized.Size = new System.Drawing.Size(96, 17);
+            this.chkStartMinimized.TabIndex = 0;
+            this.chkStartMinimized.Text = "Start minimized";
+            this.toolTip.SetToolTip(this.chkStartMinimized, "If checked, then the application will start in the system tray");
+            this.chkStartMinimized.UseVisualStyleBackColor = true;
+            this.chkStartMinimized.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkStartMinimized_MouseClick);
+            // 
             // VPGSyncMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(418, 215);
+            this.ClientSize = new System.Drawing.Size(418, 320);
+            this.Controls.Add(this.grpOtherSettings);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmdSync);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "VPGSyncMain";
             this.Text = "VP -> Google Sync (VPGSync)";
             this.Load += new System.EventHandler(this.VPGSyncMain_Load);
+            this.Resize += new System.EventHandler(this.VPGSyncMain_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSyncInterval)).EndInit();
+            this.grpOtherSettings.ResumeLayout(false);
+            this.grpOtherSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -318,6 +451,16 @@
         private System.Windows.Forms.Label lblInitials;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.NumericUpDown numSyncInterval;
+        private System.Windows.Forms.CheckBox chkAutoSync;
+        private System.Windows.Forms.Label lblSyncIntervalLabel;
+        private System.Windows.Forms.Timer tmrSync;
+        private System.Windows.Forms.Label lblNextSyncIn;
+        private System.Windows.Forms.GroupBox grpOtherSettings;
+        private System.Windows.Forms.CheckBox chkStartMinimized;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button cmdOpenLog;
     }
 }
 

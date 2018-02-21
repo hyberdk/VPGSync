@@ -51,6 +51,7 @@ namespace VPGSync
                 {
                     bool success = false;
                     RefreshToken(credential, out success);
+                    logger.Info("Authenticated successful to Google :-)");
                     if (!success) return null;
                 }
 
@@ -185,6 +186,9 @@ namespace VPGSync
 
             try
             {
+                if (contact.Name != null)
+                    logger.Info("deleting Google Contact:" + contact.Name.FullName);
+
                 cr.Delete(contact);
             }
             //catch (GDataVersionConflictException e)
@@ -249,6 +253,7 @@ namespace VPGSync
 
                 var cr = BuildContactsRequest(creds);
 
+                if (contact.Name != null) logger.Info("Updated Google Contact: " + contact.Name.FullName);
                 Contact updatedContact = cr.Update(contact);
                 //Console.WriteLine("Updated: " + updatedEntry.Updated.ToString());
                 return updatedContact;
@@ -283,7 +288,17 @@ namespace VPGSync
 
             // Insert the contact.
             Uri feedUri = new Uri(ContactsQuery.CreateContactsUri("default"));
+            if (newEntry.Name != null) logger.Info("Creating contact: " + newEntry.Name.FullName);
             Contact createdEntry = cr.Insert(feedUri, newEntry);
+            if (createdEntry != null)
+            {
+                logger.Debug("Got Google ID back: " + createdEntry.Id);
+            }
+            else
+            {
+                logger.Error("could not create contact (no ID returned)");
+            }
+            
             
             return createdEntry;
 

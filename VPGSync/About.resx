@@ -876,7 +876,7 @@
 </value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>This tool is not official supported by Global IT or anyone in Vestas. This is a home project of ESLAU and was only build to stop the annoying sync errors in the Outlook App and to get the functionality of the old VPConnect to Outlook.
+    <value>This tool is not official supported by Global IT or anyone in Vestas. This is a home project of ESLAU and was only build to stop the annoying sync errors in the Outlook App and to get the functionality of the old VPConnection to Outlook.
 
 This software is untested and could break your PC.. It could also stop working tomorrow, no one knows. Use on your own risk.</value>
   </data>

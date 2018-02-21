@@ -4,7 +4,7 @@
 
 * [Welcome to the VP->Google Sync (VPGSync) client.](#welcome-to-the-vp-google-sync-vpgsync-client)
   * [It does what?!?](#it-does-what)
-  * [Why?](#Why?)
+  * [Why?](#why)
   * [Where to download?](#where-to-download)
   * [What works?](#what-works)
   * [What is synchronized?](#what-is-synchronized)

@@ -3,17 +3,17 @@
 
 
 * [Welcome to the VP->Google Sync (VPGSync) client.](#welcome-to-the-vp-google-sync-vpgsync-client)
- * [It does what?!?](#it-does-what)
- * [Why?](#Why?)
- * [Where to download?](#where-to-download)
- * [What works?](#what-works)
- * [What is synchronized?](#what-is-synchronized)
- * [Okay, so what does not work?](#okay-so-what-does-not-work)
+  * [It does what?!?](#it-does-what)
+  * [Why?](#Why?)
+  * [Where to download?](#where-to-download)
+  * [What works?](#what-works)
+  * [What is synchronized?](#what-is-synchronized)
+  * [Okay, so what does not work?](#okay-so-what-does-not-work)
 * [How to use VPGSync](#how-to-use-vpgsync)
- * [Marking/Removing contacts for synchronization in VP](#markingremoving-contacts-for-synchronization-in-vp)
- * [Start Sync](#start-sync)
- * [Authorize Google Contact Access (first time only)](#authorize-google-contact-access-first-time-only)
- * [Syncing](#syncing)
+  * [Marking/Removing contacts for synchronization in VP](#markingremoving-contacts-for-synchronization-in-vp)
+  * [Start Sync](#start-sync)
+  * [Authorize Google Contact Access (first time only)](#authorize-google-contact-access-first-time-only)
+  * [Syncing](#syncing)
 * [Revoking access to Google](#revoking-access-to-google) 
 * [Starting VPGSync automatically on logon](starting-vpgsync-automactically-on-logon)
 
@@ -66,15 +66,18 @@ Just grab the latest one ;-)
 
 ## What works?
 
-* **v0.1**
- * VP People marked for "Outlook synchronization" will be synced
- * VP Departments marked for "Outlook synchronization" will be sync
+**v0.1**
+
+* VP People marked for "Outlook synchronization" will be synced
+* VP Departments marked for "Outlook synchronization" will be sync
   - Only the Department will be synced, not parent- or sub-departments will synchronize.
   - You can mark as many departments as you like.
-* **v0.2**
- * It will sync the picture from photos.vestas.net to your Google Contact
- * AutoSync - Sync every xx minutes 
- * Minimize to tray
+
+**v0.2**
+
+* It will sync the picture from photos.vestas.net to your Google Contact
+* AutoSync - Sync every xx minutes 
+* Minimize to tray
 
 
 ## What is synchronized?

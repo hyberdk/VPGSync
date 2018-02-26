@@ -79,6 +79,12 @@ Just grab the latest one ;-)
 * AutoSync - Sync every xx minutes 
 * Minimize to tray
 
+**v0.3**
+
+* Fixes that first time sync does not work if VGPSync group does not exist (thanks Anders)
+* Fixes that application does not hide icon when starting minimized
+
+
 
 ## What is synchronized?
 

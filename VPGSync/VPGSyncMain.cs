@@ -156,7 +156,7 @@ namespace VPGSync
 
         private void VPGSyncMain_Load(object sender, EventArgs e)
         {
-            lblInitials.Text = Environment.UserName;
+            if (chkStartMinimized.Checked) Hide();
         }
 
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -237,11 +237,11 @@ namespace VPGSync
             chkStartMinimized.Checked = Properties.Settings.Default.StartMinimized;
             _nextSync = Properties.Settings.Default.AutoSyncInterval;
             lblNextSyncIn.Text = "Next sync in (minutes): " + _nextSync;
+            lblInitials.Text = Environment.UserName;
 
             if (Properties.Settings.Default.StartMinimized)
             {
                 WindowState = FormWindowState.Minimized;
-                CheckSystemTray();
             }
         }
 
@@ -273,5 +273,6 @@ namespace VPGSync
             
             Process.Start("logs\\");
         }
+
     }
 }

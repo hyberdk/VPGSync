@@ -207,14 +207,30 @@ namespace VPGSync
         /// <returns>Contacts found, null is error occured</returns>
         public static Feed<Contact> GetGroupContacts(UserCredential creds)
         {
+            string groupId;
 
-            string groupId = GetGroupId(creds);
-
-            if (string.IsNullOrEmpty(groupId))
+            try
             {
-                logger.Warn("GroupID is empty, we have to abort the getting contacts");
+                groupId = GetGroupId(creds);
+
+                if (string.IsNullOrEmpty(groupId))
+                {
+                    logger.Warn("GroupID is empty, it must not exist.. Creating label/group: " + Constants.GroupName);
+
+                    groupId = CreateContactGroup(creds);
+                    if (string.IsNullOrEmpty(groupId))
+                    {
+                        logger.Error("Could not create group/label, exiting..");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Fatal(ex, "Error getting/creating group id");
                 return null;
             }
+
 
             var cr = BuildContactsRequest(creds);
 
@@ -224,6 +240,7 @@ namespace VPGSync
                 if (!success) return null;
 
                 ContactsQuery query = new ContactsQuery(ContactsQuery.CreateContactsUri("default"));
+                if (string.IsNullOrEmpty(groupId)) return null; //safe guard, as not setting a groupid returns all..
                 query.Group = groupId;
 
                 Feed<Contact> feed = cr.Get<Contact>(query);
@@ -419,7 +436,8 @@ namespace VPGSync
                 Group createdGroup = cr.Insert(new Uri("https://www.google.com/m8/feeds/groups/default/full"),
                     newGroup);
 
-                logger.Log(LogLevel.Info, Constants.GroupName + " Group Atom Id: " + createdGroup.Id);
+                logger.Info("Created group: " + Constants.GroupName + ", Group Atom Id: " + createdGroup.Id);
+                Thread.Sleep(10000); //okay hack, but apparrently we need to give Google a few secs to get their ducks in a row.
                 return createdGroup.Id;
             }
             catch (Exception ex)
